@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IQFOCUS - Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #EFF6FE;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .left {
+      flex: 1.3;
+    }
+
+    .left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .right {
+      flex: 1;
+      padding: 60px 50px;
+      background: #f7faff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 120px;
+    }
+
+    .welcome {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2563eb;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .subtext {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    form {
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .form-group input:focus {
+      border-color: #2563eb;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .remember input {
+      margin-right: 8px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #2563eb;
+      border: none;
+      border-radius: 25px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .left {
+        height: 40vh;
+      }
+      .right {
+        height: 60vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left side image -->
+    <div class="left">
+      <img src="login.png" alt="Dummy Image">
+    </div>
+
+    <!-- Right side login form -->
+    <div class="right">
+      <div class="logo">
+        <img src="img/logo.svg" alt="Logo">
+      </div>
+      <div class="welcome">Welcome Back!</div>
+      <div class="subtext">Sign in to continue to IQFOCUS</div>
+
+      <form action="company.html" method="get">
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="text" placeholder="Enter your Email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="Enter password">
+        </div>
+        <div class="remember">
+          <input type="checkbox" id="remember">
+          <label for="remember">Remember me</label>
+        </div>
+        <button type="submit" class="btn">Login<a href="company.html"></a></button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

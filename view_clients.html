@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View clients - IQFOCUS</title>
+    <style>
+        /* ========================================
+                       DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Primitive Color Tokens */
+            --color-white: rgba(255, 255, 255, 1);
+            --color-black: rgba(0, 0, 0, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-gray-400: rgba(119, 124, 124, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-400: rgba(45, 166, 178, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-teal-800: rgba(41, 150, 161, 1);
+            --color-red-400: rgba(255, 84, 89, 1);
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-orange-400: rgba(230, 129, 97, 1);
+            --color-orange-500: rgba(168, 75, 47, 1);
+
+            /* RGB versions for opacity control */
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-slate-900-rgb: 19, 52, 59;
+            --color-slate-500-rgb: 98, 108, 113;
+            --color-red-500-rgb: 192, 21, 47;
+            --color-red-400-rgb: 255, 84, 89;
+            --color-orange-500-rgb: 168, 75, 47;
+            --color-orange-400-rgb: 230, 129, 97;
+
+            /* Semantic Color Tokens */
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-primary-active: var(--color-teal-700);
+            --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-btn-primary-text: var(--color-cream-50);
+            --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-error: var(--color-red-500);
+            --color-success: var(--color-teal-500);
+            --color-warning: var(--color-orange-500);
+            --color-info: var(--color-slate-500);
+            --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+            --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+            /* Focus states */
+            --focus-ring: 0 0 0 3px var(--color-focus-ring);
+            --focus-outline: 2px solid var(--color-primary);
+
+            /* Typography */
+            --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-size-xs: 11px;
+            --font-size-sm: 12px;
+            --font-size-base: 14px;
+            --font-size-md: 14px;
+            --font-size-lg: 16px;
+            --font-size-xl: 18px;
+            --font-size-2xl: 20px;
+            --font-size-3xl: 24px;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 550;
+            --font-weight-bold: 600;
+            --line-height-normal: 1.5;
+
+            /* Spacing */
+            --space-4: 4px;
+            --space-6: 6px;
+            --space-8: 8px;
+            --space-10: 10px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+            --space-32: 32px;
+
+            /* Border Radius */
+            --radius-sm: 6px;
+            --radius-base: 8px;
+            --radius-md: 10px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+
+            /* Animation */
+            --duration-fast: 150ms;
+            --duration-normal: 250ms;
+            --duration-slow: 400ms;
+            --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        /* ========================================
+                 GLOBAL RESET AND BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+            color: var(--color-text);
+            background-color: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========================================
+                 MAIN LAYOUT CONTAINER
+           ======================================== */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ========================================
+                   SIDEBAR NAVIGATION STYLES
+           ======================================== */
+      .sidebar { 
+            width: 70px; 
+            background-color: var(--color-surface); 
+            border-right: 1px solid var(--color-border); 
+            display: flex; flex-direction: column; 
+            padding-top: var(--space-16); gap: var(--space-16); 
+            position: fixed; left: 0; top: 0; 
+            height: 100vh; z-index: 1000;
+            transition: width var(--duration-slow) var(--ease-smooth); 
+            overflow-x: hidden; 
+            overflow-y: auto; 
+            align-items: center; }
+    
+
+        .sidebar.expanded {
+            width: 220px;
+            align-items: flex-start;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 var(--space-16);
+            margin-bottom: var(--space-20);
+            width: 100%;
+            position: relative;
+        }
+
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--color-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform var(--duration-normal) var(--ease-standard);
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--color-text);
+        }
+
+        .sidebar-toggle {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4169E1 0%, #5b7ff5 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: fixed;
+            top: 40px;
+            left: 70px;
+            transform: translate(-50%, -50%);
+            border: 2px solid #2f54eb;
+            z-index: 1001;
+            transition: left var(--duration-slow) var(--ease-smooth),
+                        background var(--duration-normal) var(--ease-standard),
+                        transform var(--duration-normal) var(--ease-standard),
+                        box-shadow var(--duration-normal) var(--ease-standard);
+            box-shadow: 0 2px 8px rgba(65, 105, 225, 0.3);
+        }
+
+        .sidebar.expanded .sidebar-toggle {
+            left: 220px;
+        }
+
+        .sidebar-toggle:hover {
+            background: linear-gradient(135deg, #5b7ff5 0%, #4169E1 100%);
+            box-shadow: 0 4px 12px rgba(65, 105, 225, 0.4);
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .sidebar-toggle:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .sidebar-toggle svg {
+            width: 16px;
+            height: 16px;
+            fill: white;
+            transition: transform var(--duration-slow) var(--ease-smooth);
+        }
+
+        .sidebar.expanded .sidebar-toggle svg {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-icon {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: var(--space-12) var(--space-20);
+            cursor: pointer;
+            border-radius: var(--radius-base);
+            transition: background-color var(--duration-normal) var(--ease-standard),
+                        transform var(--duration-fast) var(--ease-standard);
+            gap: var(--space-12);
+        }
+
+        .sidebar-icon svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            fill: var(--color-text);
+            transition: fill var(--duration-normal) var(--ease-standard);
+        }
+
+        .sidebar-icon span {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity var(--duration-slow) var(--ease-smooth);
+        }
+
+        .sidebar.expanded .sidebar-icon span {
+            opacity: 1;
+            margin-left: 220px;
+        }
+
+        .sidebar-icon:hover {
+            background-color: var(--color-secondary);
+            transform: translateX(2px);
+        }
+
+        .sidebar:not(.expanded) .sidebar-icon {
+            justify-content: center;
+        }
+
+        .sidebar:not(.expanded) .sidebar-icon span {
+            display: none;
+        }
+
+        /* ========================================
+                      MAIN CONTENT AREA
+           ======================================== */
+       /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin-left: 70px;
+      transition: margin-left var(--duration-slow) var(--ease-smooth);
+      overflow-x: hidden;
+    }
+
+
+        .sidebar.expanded ~ .main-content {
+            margin-left: 220px;
+        }
+
+        .scrollable-wrapper {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* ========================================
+                        TOP HEADER BAR
+           ======================================== */
+        .top-header {
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-12) var(--space-24);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: var(--space-12);
+        }
+
+        .logo-placeholder {
+            width: 160px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text);
+        }
+
+        .logo-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: var(--space-12);
+        }
+
+        .icon-btn {
+            height: 35px;
+            border-radius: var(--radius-base);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-normal) var(--ease-standard);
+            padding: 0 var(--space-12);
+            gap: var(--space-6);
+        }
+
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .icon-btn.settings {
+            background-color: #FF8533;
+            width: 30px;
+            height: 30px;
+        }
+
+        .icon-btn.settings:hover {
+            background-color: #ff7020;
+            transform: scale(1.05);
+        }
+
+        .icon-btn.logout {
+            background-color: #3B4C7F;
+            width: 90px;
+            color: white;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            height: 30px;
+        }
+
+        .icon-btn.logout:hover {
+            background-color: #2f3d65;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(59, 76, 127, 0.3);
+        }
+
+        .icon-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ========================================
+                   PAGE HEADER SECTION
+           ======================================== */
+        .page-header {
+            padding: var(--space-24);
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+        }
+
+        .breadcrumb-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #4169E1;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+        }
+
+        .breadcrumb-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: white;
+        }
+
+        .breadcrumb-text {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+        }
+
+        /* ========================================
+                       TAB NAVIGATION
+           ======================================== */
+        .tabs {
+    display: flex;
+    gap: var(--space-8);
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    max-width: 100vw; /* Prevent overflow outside screen */
+    /* Hide ugly scrollbar for modern browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+.tabs::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Webkit */
+}
+
+/* For mobile: Stack vertically below 480px */
+@media (max-width: 480px) {
+    .tabs {
+        flex-direction: column;
+        gap: var(--space-4); /* smaller gap for mobile */
+        overflow-x: unset;
+        overflow-y: visible;
+    }
+}
+
+/* Button styles remain as you have them */
+.tab {
+    padding: var(--space-10) var(--space-20);
+    border: none;
+    background-color: #E8E8E8;
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    border-radius: var(--radius-base);
+    transition: all var(--duration-normal) var(--ease-standard);
+}
+.tab.active {
+    background-color: #4169E1;
+    color: white;
+}
+.tab:hover:not(.active) {
+    background-color: var(--color-secondary-hover);
+    transform: translateY(-1px);
+}
+
+
+        /* ========================================
+                    BRANCH TABLE SECTION
+           ======================================== */
+        .content-area {
+            padding: var(--space-24);
+            width: 100%;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-24);
+        }
+
+        .section-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: var(--space-12);
+        }
+
+        .section-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+        }
+
+    
+        /* ========================================
+                    TABLE CONTROLS
+           ======================================== */
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-16);
+            gap: var(--space-16);
+        }
+
+        .entries-control {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+
+        .entries-select {
+            padding: var(--space-6) var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background-color: var(--color-surface);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: var(--space-8) var(--space-32) var(--space-8) var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background-color: var(--color-surface);
+            font-size: var(--font-size-sm);
+            min-width: 250px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: var(--focus-ring);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: var(--space-12);
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .table-btn {
+            padding: var(--space-8) var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background-color: var(--color-surface);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .table-btn:hover {
+            background-color: var(--color-secondary);
+        }
+
+        .show-hide-btn {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: white;
+            background-color: #2f3d65;
+        }
+        .export {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: white;
+            background-color: #2f3d65;
+        }
+
+        /* ========================================
+                    DATA TABLE
+           ======================================== */
+        .table-wrapper {
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .table-scroll-container {
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            position: relative;
+        }
+
+        .data-table thead {
+            background-color: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .data-table th {
+            padding: var(--space-12) var(--space-16);
+            text-align: left;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-text);
+            white-space: nowrap;
+        }
+
+        .action-column-header,
+        .action-column {
+            position: sticky;
+            right: 0;
+            background-color: var(--color-surface);
+            z-index: 10;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .data-table th .sort-icon {
+            display: inline-block;
+            margin-left: var(--space-4);
+            opacity: 0.5;
+        }
+
+        .data-table tbody tr {
+            border-bottom: 1px solid var(--color-border);
+            transition: background-color var(--duration-fast) var(--ease-standard);
+        }
+
+        .data-table tbody tr:hover {
+            background-color: var(--color-secondary);
+        }
+
+        .data-table td {
+            padding: var(--space-16);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-6);
+            padding: var(--space-4) var(--space-12);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+
+        .status-badge.active {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .status-badge.inactive {
+            background-color: rgba(119, 124, 124, 0.1);
+            color: var(--color-gray-400);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-badge.active .status-dot {
+            background-color: #4CAF50;
+        }
+
+        .status-badge.inactive .status-dot {
+            background-color: var(--color-gray-400);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--space-8);
+        }
+
+        .action-icon-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .action-icon-btn.edit {
+            background-color: rgba(65, 105, 225, 0.1);
+        }
+
+        .action-icon-btn.edit:hover {
+            background-color: rgba(65, 105, 225, 0.2);
+            transform: scale(1.05);
+        }
+
+        .action-icon-btn.delete {
+            background-color: rgba(192, 21, 47, 0.1);
+        }
+
+        .action-icon-btn.delete:hover {
+            background-color: rgba(192, 21, 47, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* ========================================
+                    PAGINATION
+           ======================================== */
+        .pagination-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-16) var(--space-24);
+            border-bottom: 1px solid var(--color-border);
+            background-color: var(--color-surface);
+        }
+
+        .pagination-info {
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+
+        .pagination {
+            display: flex;
+            gap: var(--space-8);
+            align-items: center;
+        }
+
+        .page-btn {
+            padding: var(--space-6) var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background-color: var(--color-surface);
+            color: var(--color-text);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .page-btn:hover:not(.active) {
+            background-color: var(--color-secondary);
+        }
+
+        .page-btn.active {
+            background-color: #FF8533;
+            color: white;
+            border-color: #FF8533;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========================================
+                   MOBILE RESPONSIVE STYLES
+           ======================================== */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+            }
+            .sidebar.expanded {
+                width: 60px;
+            }
+            .sidebar-icon span {
+                display: none !important;
+            }
+            .main-content {
+                margin-left: 60px !important;
+            }
+            .sidebar-toggle {
+                display: none;
+            }
+            .table-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-input {
+                min-width: 100%;
+            }
+            /* Pagination adjustment */
+  .pagination-wrapper {
+    flex-direction: column;
+    gap: var(--space-12);
+    align-items: center;
+    padding: var(--space-12);
+  }
+  .pagination-info {
+    font-size: 11px;
+    text-align: center;
+    width: 100%;
+  }
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 4px;
+  }
+  .page-btn {
+    padding: var(--space-4) var(--space-8);
+    font-size: 10px;
+    min-width: 32px;
+  }
+.search-box {
+    width: 100%;
+  }
+  .search-input {
+    width: 100%;
+    min-width: auto;
+  }
+        }
+        .entries-control {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+/* General filter input style */
+.filter {
+    padding: var(--space-6) var(--space-12);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: var(--color-surface);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    width: 250px;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+/* Filter input full width on small screens */
+@media (max-width: 480px) {
+    .filter {
+        width: 100%;
+    }
+}
+
+/* Apply filter button */
+.apply-filter-btn {
+    padding: var(--space-10) var(--space-20);
+    background-color: #4169E1;
+    color: white;
+    border: none;
+    border-radius: var(--radius-base);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--duration-normal) var(--ease-standard);
+    box-sizing: border-box;
+}
+
+/* Make button full width and stacked on mobile */
+@media (max-width: 480px) {
+    .apply-filter-btn {
+        width: 100%;
+        margin-top: var(--space-8);
+    }
+}
+
+.apply-filter-btn:hover {
+    background-color: #ff7020;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 133, 51, 0.3);
+}
+
+
+        .add-employee{
+            padding: var(--space-10) var(--space-20);
+            background-color: #FF8533;
+            color: white;
+            border: none;
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+        .add-employee-btn{
+            margin-left:auto; 
+            display:flex; 
+            align-items:center;
+        }
+        .filter {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            font-size: var(--font-size-sm);
+            color: var(--color-text);
+        }
+
+        .filter {
+            padding: var(--space-6) var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            background-color: var(--color-surface);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            width: 250px;
+            height: 35px;
+            
+        }
+        .apply-filter-btn {
+            padding: var(--space-10) var(--space-20);
+            background-color: #4169E1;
+            color: white;
+            border: none;
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-normal) var(--ease-standard);
+        }
+
+        .apply-filter-btn:hover {
+            background-color: #ff7020;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(255, 133, 51, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- ========================================
+             SIDEBAR NAVIGATION
+             ======================================== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="profile-icon">
+                    <img src="person.svg" alt="profile">
+                </div>
+            </div>
+
+            <div class="sidebar-toggle" id="sidebarToggle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                <span>Dashboard</span>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                </svg>
+                <span>Calendar</span>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                <span>Users</span>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                </svg>
+                <span>Profile</span>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+                <span>Goals</span>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                <span>Schedule</span>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                </svg>
+                <span>Analytics</span>
+            </div>
+
+            <div class="sidebar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                </svg>
+                <span>Security</span>
+            </div>
+        </aside>
+
+        <!-- ========================================
+             MAIN CONTENT SECTION
+             ======================================== -->
+        <div class="main-content">
+            <div class="scrollable-wrapper">
+                <!-- Top Header Bar -->
+                <header class="top-header">
+                    <div class="logo-container">
+                        <div class="logo-placeholder">
+                            <img src="" alt="IQFOCUS">
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="icon-btn settings" aria-label="Settings">
+                            <img src="Logout.svg" alt="settings">
+                        </button>
+                        <a href="employee.html">
+                        <button class="icon-btn logout">
+                            Log out
+                            <img src="Logout.svg" alt="log out">
+                        </button>
+                        </a>
+                    </div>
+                </header>
+
+                <!-- Page Header with Breadcrumb -->
+                <div class="page-header">
+                    <div class="breadcrumb">
+                        <div class="breadcrumb-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                        </div>
+                        <span class="breadcrumb-text">Clients</span>
+                        <!-- Existing breadcrumb and tabs code ... -->
+                      <div class="add-employee-btn">
+                      <button class="add-employee" >
+                      Add Employee
+                        </button>
+                    </div>
+                    </div>
+                    <div class="tabs">
+                        <a href=""><button class="tab active">View Clients</button></a>
+                        <button class="tab">Progress Note</button>
+                        <button class="tab">Communications</button>
+                        <button class="tab">Educational Resources</button>
+                        <button class="tab">Data Import</button>
+                        <button class="tab">Data Export</button>
+                    </div>
+                </div>
+
+                <!-- ========================================
+                     BRANCH TABLE CONTENT
+                     ======================================== -->
+                <div class="content-area">
+                    <div class="section-header">
+                        <div class="section-title-wrapper">
+                            <div class="section-icon">
+
+                            </div>
+                            <div class="entries-control">
+                            <select class="filter">
+                                <option>Select Company Branch</option>
+                                <option>MH</option>
+                                <option>SUD</option>
+                                <option>PRP</option>
+                            </select>
+                            <select class="filter">
+                                <option>Select Client Status</option>
+                                <option>Active Clients</option>
+                                <option>Discharged Clients</option>
+                                <option>Pending Clients</option>
+                                <option>Transhed Clients</option>
+                                <option>Administrator Discharged Clients</option>
+                                <option>Denied Clients</option>
+                            </select>
+                        </div>
+                                
+                            </div>
+                        <button class="apply-filter-btn" >Apply Filter</button>
+                    </div>
+                        
+                    
+
+                    <!-- Table Controls -->
+                    <div class="table-controls">
+                        <div class="entries-control">
+                            <span>Entries to show</span>
+                            <select class="entries-select">
+                                <option>10</option>
+                                <option>25</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                        </div>
+                        <div class="table-actions">
+                            <div class="search-box">
+                                <input type="text" class="search-input" placeholder="Search">
+                                <span class="search-icon">🔍</span>
+                            </div>
+                            <button class="table-btn show-hide-btn" title="Show/Hide Columns">
+                                Show/Hide Columns
+                            </button>
+                            <button class="table-btn export" title="Export">
+                                Export to Excel
+                            </button>
+                            <button class="table-btn" title="Print">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                                    <rect x="6" y="14" width="12" height="8"></rect>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="table-wrapper">
+                        <!-- Pagination at Top -->
+                        <div class="pagination-wrapper">
+                            <div class="pagination-info">
+                                Showing 1 to 10 of 123 entries
+                            </div>
+                            <div class="pagination">
+                                <button class="page-btn" disabled>First</button>
+                                <button class="page-btn" disabled>Prev</button>
+                                <button class="page-btn active">1</button>
+                                <button class="page-btn">2</button>
+                                <button class="page-btn">3</button>
+                                <button class="page-btn">16</button>
+                                <button class="page-btn">17</button>
+                                <button class="page-btn">18</button>
+                                <button class="page-btn">Next</button>
+                                <button class="page-btn">Last</button>
+                            </div>
+                        </div>
+                        <div class="table-scroll-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Client <span class="sort-icon">↕</span></th>
+                                    <th>Status <span class="sort-icon">↕</span></th>
+                                    <th>Admission <br>Date<span class="sort-icon">↕</span></th>
+                                    <th>Age <span class="sort-icon">↕</span></th>
+                                    <th>Gender <span class="sort-icon">↕</span></th>
+                                    <th>Birthdate<span class="sort-icon">↕</span></th>
+                                    <th>Address <span class="sort-icon">↕</span></th>
+                                    <th>Country <span class="sort-icon">↕</span></th>
+                                    <th>Date of first<br> phone call<span class="sort-icon">↕</span></th>
+                                    <th>Date of most <br> recent call <span class="sort-icon">↕</span></th>
+                                    <th>Primary counselor <span class="sort-icon">↕</span></th>
+                                    <th>Primary <br> phone<span class="sort-icon">↕</span></th>
+                                    <th> cell phone <span class="sort-icon">↕</span></th>
+                                    <th>Level of <br> care <span class="sort-icon">↕</span></th>
+                                    <th>Birthdate<span class="sort-icon">↕</span></th>
+                                    <th>Address <br> recent call <span class="sort-icon">↕</span></th>
+                                    <th class="action-column-header">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Luca moretti</td>
+                                    <td>
+                                        <span class="status-badge inactive">
+                                            <span class="status-dot"></span>
+                                            Inactive
+                                        </span>
+                                    </td>
+                                    <td>03/31/2021</td>
+                                    <td>53</td>
+                                    <td> Female</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    <td>Worcester</td>
+                                    <td>03/31/2021</td>
+                                    <td>02/21/2025</td>
+                                        
+                                    
+                                    <td>Blessing lwuh, MSN</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>PRP Coordinate ion of care</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    
+                                    <td class="action-column">
+                                        <div class="action-buttons">
+                                            <button class="action-icon-btn edit" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4169E1" stroke-width="2">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="action-icon-btn delete" title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C0152F" stroke-width="2">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                </svg>
+                                            </button>
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                               <tr>
+                                    <td>Luca moretti</td>
+                                    <td>
+                                        <span class="status-badge inactive">
+                                            <span class="status-dot"></span>
+                                            Inactive
+                                        </span>
+                                    </td>
+                                    <td>03/31/2021</td>
+                                    <td>53</td>
+                                    <td> Female</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    <td>Worcester</td>
+                                    <td>03/31/2021</td>
+                                    <td>02/21/2025</td>
+                                        
+                                    
+                                    <td>Blessing lwuh, MSN</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>PRP Coordinate ion of care</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    
+                                    <td class="action-column">
+                                        <div class="action-buttons">
+                                            <button class="action-icon-btn edit" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4169E1" stroke-width="2">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="action-icon-btn delete" title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C0152F" stroke-width="2">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                </svg>
+                                            </button>
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Luca moretti</td>
+                                    <td>
+                                        <span class="status-badge inactive">
+                                            <span class="status-dot"></span>
+                                            Inactive
+                                        </span>
+                                    </td>
+                                    <td>03/31/2021</td>
+                                    <td>53</td>
+                                    <td> Female</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    <td>Worcester</td>
+                                    <td>03/31/2021</td>
+                                    <td>02/21/2025</td>
+                                        
+                                    
+                                    <td>Blessing lwuh, MSN</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>PRP Coordinate ion of care</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    
+                                    <td class="action-column">
+                                        <div class="action-buttons">
+                                            <button class="action-icon-btn edit" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4169E1" stroke-width="2">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="action-icon-btn delete" title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C0152F" stroke-width="2">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                </svg>
+                                            </button>
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Luca moretti</td>
+                                    <td>
+                                        <span class="status-badge inactive">
+                                            <span class="status-dot"></span>
+                                            Inactive
+                                        </span>
+                                    </td>
+                                    <td>03/31/2021</td>
+                                    <td>53</td>
+                                    <td> Female</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    <td>Worcester</td>
+                                    <td>03/31/2021</td>
+                                    <td>02/21/2025</td>
+                                        
+                                    
+                                    <td>Blessing lwuh, MSN</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>PRP Coordinate ion of care</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    
+                                    <td class="action-column">
+                                        <div class="action-buttons">
+                                            <button class="action-icon-btn edit" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4169E1" stroke-width="2">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="action-icon-btn delete" title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C0152F" stroke-width="2">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                </svg>
+                                            </button>
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                               <tr>
+                                    <td>Luca moretti</td>
+                                    <td>
+                                        <span class="status-badge inactive">
+                                            <span class="status-dot"></span>
+                                            Inactive
+                                        </span>
+                                    </td>
+                                    <td>03/31/2021</td>
+                                    <td>53</td>
+                                    <td> Female</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    <td>Worcester</td>
+                                    <td>03/31/2021</td>
+                                    <td>02/21/2025</td>
+                                        
+                                    
+                                    <td>Blessing lwuh, MSN</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>410<br> 111-3721</td>
+                                    <td>PRP Coordinate ion of care</td>
+                                    <td> 06/12/1972</td>
+                                    <td>PO BOX 91, POCOMOKE, MD21851</td>
+                                    
+                                    <td class="action-column">
+                                        <div class="action-buttons">
+                                            <button class="action-icon-btn edit" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4169E1" stroke-width="2">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                            </button>
+                                            <button class="action-icon-btn delete" title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C0152F" stroke-width="2">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                </svg>
+                                            </button>
+                                           
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.getElementById("sidebarToggle");
+        
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("expanded");
+        });
+    </script>
+
+    <script>
+  const openBtn = document.getElementById('openpopup');
+
+  openBtn.addEventListener('click', async () => {
+    // Load popup content from another file
+    try {
+      const response = await fetch('popup.html'); // file with your form
+      const html = await response.text();
+      popupInner.innerHTML = html;
+
+      popupOverlay.style.display = 'flex';
+    } catch (err) {
+      console.error('Error loading popup:', err);
+    }
+  });
+
+  popupClose.addEventListener('click', () => {
+    popupOverlay.style.display = 'none';
+    popupInner.innerHTML = ''; // clear content
+  });
+
+  // Close on overlay click
+  popupOverlay.addEventListener('click', (e) => {
+    if(e.target === popupOverlay) {
+      popupOverlay.style.display = 'none';
+      popupInner.innerHTML = '';
+    }
+  });
+</script>
+</body>
+</html>
